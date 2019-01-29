@@ -75,7 +75,8 @@ function style(feature) {
     };
 }
 // 8. Add county polygons
-L.geoJson.ajax("assets/counties.geojson", {
+var counties = null;
+counties = L.geoJson.ajax("assets/counties.geojson", {
     style: style
 }).addTo(mymap);
 
