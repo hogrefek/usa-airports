@@ -20,7 +20,7 @@ OpenStreetMap_BlackAndWhite.addTo(mymap);
 var airports = null;
 
 // 4. build up a set of colors from colorbrewer's dark2 category
-var colors = chroma.scale('Set2').mode('lch').colors(9);
+var colors = chroma.scale('Dark2').mode('lch').colors(9);
 
 // 5. dynamically append style classes to this page. This style classes will be used for colorize the markers.
 for (i = 0; i < 9; i++) {
@@ -73,7 +73,7 @@ function style(feature) {
         dashArray: '4'
     };
 }
-// 8. Add county polygons
+// 8. Add state polygons
 var states = null;
 states = L.geoJson.ajax("assets/us-states.geojson", {
     style: style
@@ -104,3 +104,14 @@ legend.addTo(mymap);
 
 // 12. Add a scale bar to map
 L.control.scale({position: 'bottomleft'}).addTo(mymap);
+
+// 13. KRH Addition to required componenets: a lat/Long popup - very handy for pilot navigational needs
+var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("Click Position: " + e.latlng.toString())
+        .openOn(mymap);
+}
+mymap.on('click', onMapClick);
